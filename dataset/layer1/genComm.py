@@ -4,15 +4,15 @@ from community import community_louvain
 
 
 def dictToCSV(d, name1, name2, filename):
-    node = []
-    comm = []
-    for key in d:
-        node.append(key)
-        comm.append(d[key])
-    
-    df = pd.DataFrame({name1: node, name2: comm})
-    df.to_csv(filename, index=False)
-    return df
+	node = []
+	comm = []
+	for key in d:
+		node.append(key)
+		comm.append(d[key])
+	
+	df = pd.DataFrame({name1: node, name2: comm})
+	df.to_csv(filename, index=False)
+	return df
 
 df = pd.read_csv("../IEEE VIS papers 1990-2021 - Main dataset.csv")
 df = df[['AuthorNames']]

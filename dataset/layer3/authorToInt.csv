@@ -1,0 +1,426 @@
+author,id
+J. Kruger,0
+R. Westermann,1
+Edward Segel,2
+Jeffrey Heer,3
+Fernanda B. Viegas,4
+Martin Wattenberg,5
+Frank van Ham,6
+Jesse Kriss,7
+Matt McKeon,8
+Tamara Munzner,9
+John Stasko,10
+Carsten Gorg,11
+Zhicheng Liu,12
+Kanupriya Singhal,13
+Michael Sedlmair,14
+Miriah Meyer,15
+J. Kniss,16
+G. Kindlmann,17
+C. Hansen,18
+Lee Byron,19
+S.K. Card,20
+J. Mackinlay,21
+D. Ebert,22
+P. Rheingans,23
+J.J. van Wijk,24
+George Robertson,25
+Roland Fernandez,26
+Danyel Fisher,27
+Bongshin Lee,28
+Sean Kandel,29
+Andreas Paepcke,30
+Joseph M. Hellerstein,31
+Alan M. MacEachren,32
+Anuj Jaiswal,33
+Anthony C. Robinson,34
+Scott Pezanowski,35
+Alexander Savelyev,36
+Prasenjit Mitra,37
+Xiao Zhang,38
+Justine Blanford,39
+Arvind Satyanarayan,40
+Dominik Moritz,41
+Kanit Wongsuphasawat,42
+Christopher Collins,43
+Ed Huai-Hsin Chi,44
+J.T. Riedl,45
+R. Amar,46
+J. Stasko,47
+Megan Monroe,48
+Rongjian Lan,49
+Hanseung Lee,50
+Catherine Plaisant,51
+Ben Shneiderman,52
+H. Carr,53
+J. Snoeyink,54
+M. van de Panne,55
+Samuel Gratzl,56
+Alexander Lex,57
+Nils Gehlenborg,58
+Hanspeter Pfister,59
+Marc Streit,60
+Robert E. Roth,61
+James O'Brien,62
+Bonan Li,63
+Derek Swingley,64
+Mark Gahegan,65
+Daniel Smilkov,66
+James Wexler,67
+Jimbo Wilson,68
+Dandelion Mané,69
+Doug Fritz,70
+Dilip Krishnan,71
+Fernanda B. Viégas,72
+Gennady Andrienko,73
+Natalia Andrienko,74
+Michael Burch,75
+Daniel Weiskopf,76
+Lauro Lins,77
+James T. Klosowski,78
+Carlos Scheidegger,79
+D. Laney,80
+P.-t. Bremer,81
+A. Mascarenhas,82
+P. Miller,83
+V. Pascucci,84
+Jerry Alan Fails,85
+Amy Karlson,86
+Layla Shahamat,87
+Maarten H. Everts,88
+Henk Bekker,89
+Jos B.T.M. Roerdink,90
+Tobias Isenberg,91
+Aidong Lu,92
+C.J. Morris,93
+D.S. Ebert,94
+Paulo Joia,95
+Danilo Coimbra,96
+Jose A. Cuminato,97
+Fernando V. Paulovich,98
+Luis G. Nonato,99
+Luana Micallef,100
+Pierre Dragicevic,101
+Jean-Daniel Fekete,102
+Charles Perin,103
+Romain Vuillemot,104
+S.F. Roth,105
+P. Lucas,106
+J.A. Senn,107
+C.C. Gomberg,108
+M.B. Burks,109
+P.J. Stroffolino,110
+A.J. Kolojechick,111
+C. Dunmire,112
+Huy Vo,113
+David Koop,114
+Juliana Freire,115
+Claudio Silva,116
+Jian Zhao,117
+Nan Cao,118
+Zhen Wen,119
+Yale Song,120
+Yu-Ru Lin,121
+Thomas Schultz,122
+Hans-Peter Seidel,123
+W.A.A. Nuij,124
+Christophe Hurter,125
+Salvatore Rinzivillo,126
+Stefan Wrobel,127
+Heidi Lam,128
+Caroline Ziemkiewicz,129
+Robert Kosara,130
+Jessica Hullman,131
+Eytan Adar,132
+Priti Shah,133
+K. Cole-McLaughlin,134
+Nicholas Kong,135
+Maneesh Agrawala,136
+Thomas Mühlbacher,137
+Harald Piringer,138
+Jurgen Waser,139
+Raphael Fuchs,140
+Hrvoje Ribicic,141
+Benjamin Schindler,142
+Gunther Bloschl,143
+Eduard Groller,144
+Chenglong Wang,145
+Greg L. Nelson,146
+Halden Lin,147
+Adam M. Smith,148
+Bill Howe,149
+Markus Steinberger,150
+Manuela Waldner,151
+Dieter Schmalstieg,152
+Stef van den Elzen,153
+Jarke J. van Wijk,154
+Michael Krone,155
+Katrin Bidmon,156
+Thomas Ertl,157
+Danny Holten,158
+Jorik Blaas,159
+Hendrik Strobelt,160
+Sebastian Gehrmann,161
+Michael Behrisch,162
+Adam Perer,163
+Alexander M. Rush,164
+Aidan Slingsby,165
+Jason Dykes,166
+Jo Wood,167
+Markus Hadwiger,168
+Johanna Beyer,169
+Won-Ki Jeong,170
+Narges Mahyar,171
+Melanie Tory,172
+Tanja Blascheck,173
+Markus John,174
+Kuno Kurzhals,175
+Steffen Koch,176
+Tino Weinkauf,177
+Holger Theisel,178
+Steve Haroz,179
+David Whitney,180
+Panpan Xu,181
+Honghui Mei,182
+Liu Ren,183
+Wei Chen,184
+Robert Kincaid,185
+Lingyun Yu,186
+Konstantinos Efstathiou,187
+Petra Isenberg,188
+Yuri Ivanov,189
+Christopher Wren,190
+Alexander Sorokin,191
+Ishwinder Kaur,192
+Michael Gleicher,193
+L.M. Hwa,194
+M.A. Duchaineau,195
+K.I. Joy,196
+Steve Kieffer,197
+Tim Dwyer,198
+Kim Marriott,199
+Michael Wybrow,200
+Michael J. McGuffin,201
+Igor Jurisica,202
+Hadley Wickham,203
+Dianne Cook,204
+Heike Hofmann,205
+Andreas Buja,206
+Matthew Kay,207
+Cydney B. Nielsen,208
+Shaun D. Jackman,209
+Inanç Birol,210
+Steven J.M. Jones,211
+Cheuk Yiu Ip,212
+Amitabh Varshney,213
+Joseph JaJa,214
+Hua Guo,215
+Steven R. Gomez,216
+David H. Laidlaw,217
+Julien Tierny,218
+Guillaume Favelier,219
+Joshua A. Levine,220
+Charles Gueunet,221
+Michael Michaux,222
+Ming-Yuen Chan,223
+Yingcai Wu,224
+Wai-Ho Mak,225
+Huamin Qu,226
+Carr Hamish,227
+Brian Duffy,228
+Brain Denby,229
+Gary K. L. Tam,230
+Vivek Kothari,231
+Min Chen,232
+Evanthia Dimara,233
+Anastasia Bezerianos,234
+Silvia Born,235
+Alexander Wiebel,236
+Jan Friedrich,237
+Gerik Scheuermann,238
+Dirk Bartz,239
+Gordon Kindlmann,240
+Eric A. Bier,241
+Stuart K. Card,242
+John W. Bodnar,243
+Yalong Yang,244
+Sarah Goodwin,245
+Behzad Sajadi,246
+Aditi Majumder,247
+Norbert Lindow,248
+Daniel Baum,249
+Hans-Christian Hege,250
+Danielle Albers Szafir,251
+Junpeng Wang,252
+Liang Gou,253
+Han-Wei Shen,254
+Hao Yang,255
+Zening Qu,256
+Mennatallah El-Assady,257
+Rita Sevastjanova,258
+Fabian Sperrle,259
+Daniel Keim,260
+Mathias Hummel,261
+Harald Obermaier,262
+Christoph Garth,263
+Kenneth I. Joy,264
+Harald Bosch,265
+Mark Giereth,266
+Donghao Ren,267
+Matthew Brehmer,268
+Bilal Alsallakh,269
+Wolfgang Aigner,270
+Silvia Miksch,271
+M. Eduard Gröller,272
+Martin Mladenov,273
+Michael Mock,274
+Christian Pölitz,275
+Michael Glueck,276
+Fanny Chevalier,277
+Azam Khan,278
+Ali K. Al-Awami,279
+Narayanan Kasthuri,280
+Jeff W. Lichtman,281
+J.E. Swan,282
+K. Mueller,283
+T. Moller,284
+N. Shareel,285
+R. Crawfis,286
+R. Yagel,287
+Dane Coffey,288
+Chi-Lun Lin,289
+Arthur G. Erdman,290
+Daniel F. Keefe,291
+D.C. Banks,292
+S. Linton,293
+Carlos Correa,294
+Peter Lindstrom,295
+A. Neubauer,296
+L. Mroz,297
+S. Wolfsberger,298
+R. Wegenkittl,299
+M.-T. Forster,300
+K. Buhler,301
+Ido Guy,302
+Erel Uziel,303
+Inbal Ronen,304
+Michal Jacovi,305
+Timothy Sullivan,306
+Soumya Dutta,307
+Chun-Ming Chen,308
+Gregory Heinlein,309
+Jen-Ping Chen,310
+Hamish Carr,311
+Bernd Hentschel,312
+Irene Tedjo,313
+Markus Probst,314
+Marc Wolter,315
+Marek Behr,316
+Christian Bischof,317
+Torsten Kuhlen,318
+Marco Ament,319
+Filip Sadlo,320
+Conglei Shi,321
+Shixia Liu,322
+Hong Zhou,323
+David Schroeder,324
+Dongyu Liu,325
+X. Yuan,326
+M.Z. Nguyen,327
+B. Chen,328
+D.H. Porter,329
+Tobias Günther,330
+Maik Schulze,331
+Roger Beecham,332
+Wouter Meulemans,333
+Cagatay Turkay,334
+Takanori Fujiwara,335
+Oh-Hyun Kwon,336
+Kwan-Liu Ma,337
+Sujal Bista,338
+Jiachen Zhuo,339
+Rao P. Gullapalli,340
+Karl Bladin,341
+Emil Axelsson,342
+Erik Broberg,343
+Carter Emmart,344
+Patric Ljung,345
+Alexander Bock,346
+Anders Ynnerman,347
+Cong Xie,348
+Wei Xu,349
+Klaus Mueller,350
+Alexander Kachkaev,351
+Wen Zhong,352
+Karen B. Schloss,353
+Connor C. Gramazio,354
+Allison T. Silverman,355
+Madeline L. Parker,356
+Audrey S. Wang,357
+Samer S. Barakat,358
+Xavier Tricoche,359
+Daniel Jönsson,360
+Jagoda Walny,361
+Christian Frisson,362
+Mieka West,363
+Doris Kosminsky,364
+Søren Knudsen,365
+Sheelagh Carpendale,366
+Wesley Willett,367
+Wenbin He,368
+Hanqi Guo,369
+Ko-Chih Wang,370
+Mukund Raj,371
+Youssef S. G. Nashed,372
+Tom Peterka,373
+Nicole Jardine,374
+Brian D. Ondov,375
+Niklas Elmqvist,376
+Steven Franconeri,377
+David Kouřil,378
+Ladislav Čmolík,379
+Barbora Kozlíková,380
+Hslanc-Yun Wu,381
+Graham Johnson,382
+David S. Goodsell,383
+Arthur Olson,384
+Ivan Viola,385
+Bowen Yu,386
+Cláudio T. Silva,387
+Jules Vidal,388
+Joseph Budin,389
+Alessandro Giusti,390
+Pierluigi Taddei,391
+Giorgio Corani,392
+Luca Gambardella,393
+Cristina Magli,394
+Luca Gianaroli,395
+Andrey Krekhov,396
+Jens Krüger,397
+Tao Ju,398
+Minxin Cheng,399
+Xu Wang,400
+Ye Duan,401
+Subhashis Hazarika,402
+Haoyu Li,403
+Ching-Shan Chou,404
+Alex Kale,405
+Benjamin Lee,406
+Dave Brown,407
+Steven Drucker,408
+Pavol Klacansky,409
+Attila Gyulassy,410
+Peer-Timo Bremer,411
+Valerio Pascucci,412
+Sergej Stoppel,413
+Magnus Paulson Erga,414
+Stefan Bruckner,415
+Ying Zhao,416
+Haojin Jiang,417
+Qi'an Chen,418
+Yaqi Qin,419
+Huixuan Xie,420
+Yitao Wu,421
+Zhiguang Zhou,422
+Jiazhi Xia,423
+Fangfang Zhou,424

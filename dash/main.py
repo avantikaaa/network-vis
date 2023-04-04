@@ -1,51 +1,44 @@
-from dash import Dash, html
+from dash import Dash, html, dash_table, dcc, callback, Output, Input
 import pandas as pd
-
-# app = Dash(__name__)
-
-df_weight = pd.read_csv("../dataset/layer3/pearson_distance.csv.zip", compression="zip")
 import plotly.express as px
-# df = px.data.iris()
-# print(df.describe())
-# fig = px.scatter(df, x="sepal_width", y="sepal_length", color='petal_length')
-# fig.show()
+import dash_mantine_components as dmc
 
-print("here")
-import glob
-edge_files = glob.glob("../dataset/community/*.edge")
-# print(edge_files)
+# Incorporate data
+df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv')
 
-new_mapping = {}
-count = 0
+# Initialize the app - incorporate a Dash Mantine theme
+external_stylesheets = [dmc.theme.DEFAULT_COLORS]
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 
-tmp = []
+# App layout
+app.layout = dmc.Container([
+    dmc.Title('My First App with Data, Graph, and Controls', color="blue", size="h3"),
+    dmc.RadioGroup(
+            [dmc.Radio(i, value=i) for i in  ['pop', 'lifeExp', 'gdpPercap']],
+            id='my-dmc-radio-item',
+            value='lifeExp',
+            size="sm"
+        ),
+    dmc.Grid([
+        dmc.Col([
+            dash_table.DataTable(data=df.to_dict('records'), page_size=12, style_table={'overflowX': 'auto'})
+        ], span=6),
+        dmc.Col([
+            dcc.Graph(figure={}, id='graph-placeholder')
+        ], span=6),
+    ]),
 
-for file in edge_files:
-    f = open(file, "r")
-    for line in f.readlines():
-        a, b = map(int, line[:-1].split())
-        if a not in new_mapping:
-            new_mapping[a] = count
-            count += 1
-        if b not in new_mapping:
-            new_mapping[b] = count
-            count += 1
-        tmp.append([new_mapping[a], new_mapping[b], df_weight.loc[a].at(b)])
-        tmp.append([new_mapping[b], new_mapping[a], df_weight.loc[a].at(b)])
-    f.close()
-    print(file)
+], fluid=True)
 
-df = pd.DataFrame(tmp, columns=["node1", "node2", "weight"])
-df.to_csv("../dataset/new_mapping.csv", index=False)
-print("fig")
-fig = px.scatter(df, x="node1", y="node2", color='weight')
-fig.show()
+# Add controls to build the interaction
+@callback(
+    Output(component_id='graph-placeholder', component_property='figure'),
+    Input(component_id='my-dmc-radio-item', component_property='value')
+)
+def update_graph(col_chosen):
+    fig = px.histogram(df, x='continent', y=col_chosen, histfunc='avg')
+    return fig
 
-
-
-# app.layout = html.Div([
-#     html.Div(children='Hello World')
-# ])
-
-# if __name__ == '__main__':
-#     app.run_server(debug=True)
+# Run the App
+if __name__ == '__main__':
+    app.run_server(debug=True)

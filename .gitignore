@@ -1,7 +1,9 @@
 vgatm
 
 dataset/layer2/sim_mat
+dataset/tmp.csv
 
 test
 
 visualisation/node_modules
+

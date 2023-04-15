@@ -5,15 +5,25 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
+
+
 df = pd.read_csv('../dataset/combined.csv')
 # register_page(__name__, path="/topic")
 # app = Dash(__name__)
 plot_size = 700
 
+defaultValue = 1
+
+def setDefaultVal(val):
+	print("set val called", val)
+	if not val:
+		return
+	defaultValue = val
+
 layout = html.Div(children=[
 	html.Div([
 		html.H1(children='Similarity', style={'textAlign':'center'}),
-		dcc.Dropdown(df.community.unique(), id='dropdown'),
+		dcc.Dropdown(df.community.unique(), value=defaultValue, id='dropdown'),
 	]),
 	html.Div(className="grap-rows", children=[
 		html.Div([
@@ -27,17 +37,16 @@ layout = html.Div(children=[
 	]),   
 ])
 
-	
 
 @callback(
 	Output('topic', 'figure'),
 	Output('temporal', 'figure'),
 	Input('dropdown', 'value'),
-	# Input('getComm', 'value')
+	# Input('getComm', 'data')
 )
 
-def update_graphs(dropdown, getComm=0):
-	value = getComm
+def update_graphs(dropdown):
+	# defaultValue = getComm
 	if dropdown:
 		value = dropdown
 	dff = df[df.community==value]

@@ -4,6 +4,9 @@ import pandas as pd
 
 import dash_bootstrap_components as dbc
 
+
+from pages import similarity
+
 df = pd.read_csv('../dataset/vis/stats.csv')
 # register_page(__name__, path='/home')
 # app = Dash(__name__)
@@ -28,6 +31,7 @@ layout = html.Div(children=[
 		]),
 		html.Div(children=[
 			dcc.Input(id="getComm", type="number", placeholder="community id", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
+			# html.Button('Submit', id='next', n_clicks=0)
 		])
 	
 		
@@ -44,10 +48,10 @@ layout = html.Div(children=[
 	Input('maxNodes', 'value'),
 	Input('minEdges', 'value'),
 	Input('maxEdges', 'value'),
-	# Input('getComm', 'value')
+	Input('getComm', 'value')
 )
 
-def update_graph(low_node, high_node, low_edge, high_edge):
+def update_graph(low_node, high_node, low_edge, high_edge, getComm):
 	if not low_node:
 		low_node = 2
 	if not high_node:
@@ -56,6 +60,7 @@ def update_graph(low_node, high_node, low_edge, high_edge):
 		low_edge = 1
 	if not high_edge:
 		high_edge = 2230
+	similarity.setDefaultVal(getComm)
 	# print(low_edge, high_edge, low_node, high_node)
 	if low_node > high_node or low_edge > high_edge:
 		return px.scatter(df, x='edge_count', y='node_count', color='community')

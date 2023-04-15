@@ -19,7 +19,7 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     nav, 
     html.Div(id='page-content', children=[]), 
-    dcc.Store(id='getComm')
+    # dcc.Store(id='getComm', storage_type="local")
 ])
 
 # Create the callback to handle mutlipage inputs

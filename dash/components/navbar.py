@@ -7,13 +7,13 @@ def Navbar():
     layout = html.Div([
         dbc.NavbarSimple(
             children=[
-                dbc.NavItem(dbc.NavLink("Page 1", href="/home")),
+                dbc.NavItem(dbc.NavLink("Page 1", href="/")),
                 dbc.NavItem(dbc.NavLink("Page 2", href="/similarity")),
             ] ,
             brand="Multipage Dash App",
-            brand_href="/page1",
-            color="dark",
-            dark=True,
+            brand_href="/",
+            # color="dark",
+            # dark=True,
         ), 
     ])
 

@@ -16,6 +16,7 @@ nav = navbar.Navbar()
 
 # Define the index page layout
 app.layout = html.Div([
+    # dcc.Store(id="getComm", storage_type="local"),
     dcc.Location(id='url', refresh=False),
     nav, 
     html.Div(id='page-content', children=[]), 
@@ -27,7 +28,7 @@ app.layout = html.Div([
                 [Input('url', 'pathname')],
             )
 def display_page(pathname):
-    if pathname == '/home':
+    if pathname == '/':
         return home.layout
     if pathname == '/similarity':
         return similarity.layout

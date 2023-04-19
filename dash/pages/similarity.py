@@ -15,42 +15,53 @@ plot_size = 700
 defaultValue = 1
 
 def setDefaultVal(val):
-	print("set val called", val)
+	print("set val called", val, type(val))
 	if not val:
 		return
-	defaultValue = val
+	defaultValue = int(val)
+	print(defaultValue, "hi")
+
+def update_graphs():
+	value = str(defaultValue)
+	print("whhhhhha", defaultValue)
+	# if dropdown:
+	# 	value = dropdown
+	dff = df[df.community==value]
+	# print(dff.head())
+	return px.scatter(dff, x="node1", y="node2", color="topic_similarity"), px.scatter(dff, x="node1", y="node2", color="temporal_similarity")
+
+
+g1, g2 = update_graphs()
+
 
 layout = html.Div(children=[
 	html.Div([
 		html.H1(children='Similarity', style={'textAlign':'center'}),
-		dcc.Dropdown(df.community.unique(), value=defaultValue, id='dropdown'),
+		html.H6(children=defaultValue, style={'textAlign':'center'}),
+		# dcc.Dropdown(df.community.unique(), value=str(defaultValue), id='dropdown'),
 	]),
 	html.Div(className="grap-rows", children=[
-		html.Div([
-			dcc.Graph(id='topic')
-			# dcc.Graph(id='temporal')
-		], style={'width':'30%', 'align': "left"}),
+		# html.Div([
+		# 	dcc.Graph(id='topic')
+		# 	# dcc.Graph(id='temporal')
+		# ], style={'width':'30%', 'align': "left"}),
 		html.Div([
 			# dcc.Graph(id='topic'),
-			dcc.Graph(id='temporal')
-		], style={'width':'30%', 'align': "right"}),
+			dcc.Graph(figure=g1),
+			dcc.Graph(figure=g2)
+		]),
 	]),   
 ])
 
 
-@callback(
-	Output('topic', 'figure'),
-	Output('temporal', 'figure'),
-	Input('dropdown', 'value'),
-	# Input('getComm', 'data')
-)
+# @callback(
+# 	Output('topic', 'figure'),
+# 	Output('temporal', 'figure'),
+# 	Input('dropdown', 'value'),
+# 	# Input('getComm', 'data')
+# )
 
-def update_graphs(dropdown):
-	# defaultValue = getComm
-	if dropdown:
-		value = dropdown
-	dff = df[df.community==value]
-	return px.scatter(dff, x="node1", y="node2", color="topic_similarity"), px.scatter(dff, x="node1", y="node2", color="temporal_similarity")
+
 
 # def temporal(value):
 #     dff = df[df.community==value]

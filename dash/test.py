@@ -30,7 +30,7 @@ index_page = html.Div(
 	id='index_page',
 	children=[
 				html.Div([
-		html.H1(children='Similarity', style={'textAlign':'center'}),
+		html.H1(children='Number of nodes and edges in a community', style={'textAlign':'center'}),
 	]),
 	html.Div(children = [
 	
@@ -87,8 +87,8 @@ similarity_layout = html.Div(
 	id="similarity_layout",
 	children=[
 		html.Div([
-		html.H1(children='Similarity', style={'textAlign':'center'}),
-		html.Div(id="strComm")
+		html.H1(id='strComm', style={'textAlign':'center'}),
+		# html.Div(id="strComm")
 		# dcc.Dropdown(homeDf.community.unique(), value=str(defaultValue), id='dropdown'),
 	]),
 	html.Div(className="grap-rows", children=[
@@ -212,7 +212,7 @@ def similarity_graphs(getComm):
 	# 	value = dropdown
 	dff = similairtyDf[similairtyDf.community==value]
 	# print(dff.head())
-	return px.scatter(dff, x="node1", y="node2", color="topic_similarity"), px.scatter(dff, x="node1", y="node2", color="temporal_similarity"), "Community {}".format(str(getComm))
+	return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=600, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=600, height=600), "Similarity in Community {}".format(str(getComm))
 
 
 # g1, g2 = update_graphs()

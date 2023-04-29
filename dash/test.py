@@ -1,18 +1,18 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+# import dash_html_components as html
 from dash.dependencies import Input, Output
-
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 import plotly.express as px
 import pandas as pd
 
-print(dcc.__version__)
+# print(dcc.__version__)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.config.suppress_callback_exceptions = True
 
@@ -24,129 +24,130 @@ homeDf = pd.read_csv('../dataset/vis/stats.csv')
 similairtyDf = pd.read_csv('../dataset/combined.csv')
 ########################
 
+bounds =  dbc.Card(
+    [
+        html.Div(
+            [
+                dbc.Label("Lower bound on edges"),
+				dbc.Input(id="minEdges", type="number", placeholder="Range = [1, 2230]", min=1, max=2230, step=1, style={"margin": "5px"}),
+            ]
+        ),
+        html.Div(
+            [
+                dbc.Label("Upper bound on edges"),
+				dbc.Input(id="maxEdges", type="number", placeholder="Range = [1, 2230]", min=1, max=2230, step=1, style={"margin": "5px"}),
 
-index_page = html.Div(
-	# I added this id attribute
-	id='index_page',
-	children=[
-				html.Div([
-		html.H1(children='Number of nodes and edges in a community', style={'textAlign':'center'}),
-	]),
-	html.Div(children = [
-	
-		dbc.Col([
-			html.Div(children = [
-				dcc.Input(id="minEdges", type="number", placeholder="lower bound for edge_count", min=1, max=2230, step=1, style={"width": "200px", "margin": "5px"}),
-				dcc.Input(id="maxEdges", type="number", placeholder="upper bound for edge_count", min=1, max=2230, step=1, style={"width": "200px", "margin": "5px"}),
-				dcc.Input(id="minNodes", type="number", placeholder="lower bound for node_count", min=2, max=398, step=1, style={"width": "200px", "margin": "5px"}),
-				dcc.Input(id="maxNodes", type="number", placeholder="upper bound for node_count", min=2, max=398, step=1, style={"width": "200px", "margin": "5px"}),
-			], style={"align": "center"}),
+            ]
+        ),
+        html.Div(
+            [
+                dbc.Label("Lower bound on nodes"),
+				dbc.Input(id="minNodes", type="number", placeholder="Range = [2, 398]", min=2, max=398, step=1, style={"margin": "5px"}),
 
-			html.Div([
-				dcc.Graph(id='main'),
-			])
-		]),
+            ]
+        ),
+		html.Div(
+            [
+                dbc.Label("Upper bound on nodes"),
+				dbc.Input(id="maxNodes", type="number", placeholder="Range = [2, 398]", min=2, max=398, step=1, style={"margin": "5px"}),
+
+
+            ]
+        ),
+    ],
+    body=True,
+)
+
+
+index_page = dbc.Container(
+    [
+        html.H1("Number of nodes and edges in a community"),
+        html.Hr(),
+        dbc.Row(
+            [
+                dbc.Col(bounds, md=3),
+                dbc.Col(dcc.Graph(id="main"), md=9),
+            ],
+            align="center",
+        ),
 		html.Div(children=[
-			dcc.Input(id="getComm", type="number", placeholder="community id", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
+			dcc.Input(id="getComm", type="number", placeholder="Range: [0, 456]", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
 			# dbc.Nav(dbc.NavItem(dbc.NavLink("See community", href="/similarity")), fill=True, pills=True),
 			# dbc.NavItem(dbc.NavLink("Active", href="/home", active=True)),
 			html.Button(dbc.NavItem(dbc.NavLink("See community", href="/similarity", active=getCommActivity)), id='submit-val', n_clicks=0)
 			# html.Button('Submit', id='next', n_clicks=0)
 		])
-	
-		
-	]),
-			],
-	# I added this style attribute
-	style={'display': 'block', 'line-height':'0', 'height': '0', 'overflow': 'hidden'}
-)
-
-page_1_layout = html.Div(
-	# I added this id attribute
-	id='page_1_layout',
-	children=[
-		html.H1('Page 1'),
-		dcc.Dropdown(
-			id='page-1-dropdown',
-			options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
-			value='LA'
-		),
-		html.Div(id='page-1-content'),
-		html.Br(),
-		dcc.Link('Go to Page 2', href='/page-2'),
-		html.Br(),
-		dcc.Link('Go back to home', href='/'),
-	],
-	# I added this style attribute
-	style={'display': 'block', 'line-height': '0', 'height': '0', 'overflow': 'hidden'}
-
+    ],
+    id="index_page",
+    fluid=True,
 )
 
 
-similarity_layout = html.Div(
-	id="similarity_layout",
-	children=[
-		html.Div([
-		html.H1(id='strComm', style={'textAlign':'center'}),
-		# html.Div(id="strComm")
-		# dcc.Dropdown(homeDf.community.unique(), value=str(defaultValue), id='dropdown'),
-	]),
-	html.Div(className="grap-rows", children=[
-		# html.Div([
-		# 	dcc.Graph(id='topic')
-		# 	# dcc.Graph(id='temporal')
-		# ], style={'width':'30%', 'align': "left"}),
-		html.Div([
-			# dcc.Graph(id='topic'),
-			dcc.Graph(id="topic"),
-			dcc.Graph(id="temporal")
-		]),
-	]),
-	]
+similarity_layout = dbc.Container(
+    [
+        html.H1(id='strComm', style={'textAlign':'center'}),
+        html.Hr(),
+        dbc.Row(
+            [
+				dbc.Col(dcc.Graph(id="topic")),
+				dbc.Col(dcc.Graph(id="temporal")),
+            ],
+            align="center",
+        ),
+		html.Div(children=[
+			dcc.Input(id="getComm", type="number", placeholder="Range: [0, 456]", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
+			# dbc.Nav(dbc.NavItem(dbc.NavLink("See community", href="/similarity")), fill=True, pills=True),
+			# dbc.NavItem(dbc.NavLink("Active", href="/home", active=True)),
+			html.Button(dbc.NavItem(dbc.NavLink("Change community", href="/similarity", active=getCommActivity)), id='submit-val', n_clicks=0)
+			# html.Button('Submit', id='next', n_clicks=0)
+		])
+    ],
+    id="similarity_layout",
+    fluid=True,
 )
 
+# similarity_layout = dbc.Container(
+# 	children=[
+# 		html.Div([
+# 		html.H1(id='strComm', style={'textAlign':'center'}),
+# 		# html.Div(id="strComm")
+# 		# dcc.Dropdown(homeDf.community.unique(), value=str(defaultValue), id='dropdown'),
+# 	]),
+# 	html.Div(className="grap-rows", children=[
+# 		# html.Div([
+# 		# 	dcc.Graph(id='topic')
+# 		# 	# dcc.Graph(id='temporal')
+# 		# ], style={'width':'30%', 'align': "left"}),
+# 		dbc.Row([
+# 			# dcc.Graph(id='topic'),
+# 			dbc.Col(dcc.Graph(id="topic")),
+# 			dbc.Col(dcc.Graph(id="temporal"))
+# 		]),
+# 	], ),
+# 	],
+# 	id="similarity_layout"
+# )
 
-page_2_layout = html.Div(
-	# I added this id attribute
-	id='page_2_layout',
-	children=[
-		html.H1('Page 2'),
-		html.Div(id='page-2-content'),
-		html.Br(),
-		dcc.Link('Go to Page 1', href='/page-1'),
-		html.Br(),
-		dcc.Link('Go back to home', href='/'),
-	],
-	# I added this style attribute
-	style={'display': 'block', 'line-height': '0', 'height': '0', 'overflow': 'hidden'}
-)
+
 
 app.layout = html.Div([
 	dcc.Location(id='url', refresh=False),
 	html.Div(id='page-content',
 			 # I added this children attribute
-			 children=[index_page, page_1_layout, page_2_layout, similarity_layout]
+			 children=[index_page, similarity_layout]
 			 )
 ])
 
 
 # Update the index
 @app.callback(
-	[dash.dependencies.Output(page, 'style') for page in ['index_page', 'page_1_layout', 'page_2_layout', 'similarity_layout']],
+	[dash.dependencies.Output(page, 'style') for page in ['index_page', 'similarity_layout']],
 	# I turned the output into a list of pages
 	[dash.dependencies.Input('url', 'pathname')])
 def display_page(pathname):
-	return_value = [{'display': 'block', 'line-height': '0', 'height': '0', 'overflow': 'hidden'} for _ in range(4)]
-
-	if pathname == '/page-1':
+	return_value = [{'display': 'block', 'line-height': '0', 'height': '0', 'overflow': 'hidden'} for _ in range(2)]
+	if pathname == '/similarity':
 		return_value[1] = {'height': 'auto', 'display': 'inline-block'}
-		return return_value
-	elif pathname == '/page-2':
-		return_value[2] = {'height': 'auto', 'display': 'inline-block'}
-		return return_value
-
-	elif pathname == '/similarity':
-		return_value[3] = {'height': 'auto', 'display': 'inline-block'}
 		return return_value
 	
 	else:
@@ -154,16 +155,6 @@ def display_page(pathname):
 		return return_value
 
 
-@app.callback(dash.dependencies.Output('page-1-content', 'children'),
-			  [dash.dependencies.Input('page-1-dropdown', 'value')])
-def page_1_dropdown(value):
-	return 'You have selected "{}"'.format(value)
-
-
-@app.callback(Output('page-2-content', 'children'),
-			  [Input('page-1-dropdown', 'value')])
-def page_2(value):
-	return 'You selected "{}"'.format(value)
 
 
 @app.callback(
@@ -212,7 +203,7 @@ def similarity_graphs(getComm):
 	# 	value = dropdown
 	dff = similairtyDf[similairtyDf.community==value]
 	# print(dff.head())
-	return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=600, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=600, height=600), "Similarity in Community {}".format(str(getComm))
+	return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=700, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=700, height=600), "Similarity in Community: {}".format(str(getComm))
 
 
 # g1, g2 = update_graphs()

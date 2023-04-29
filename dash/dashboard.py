@@ -6,9 +6,9 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 
-# print(dcc.__version__)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -72,50 +72,66 @@ index_page = dbc.Container(
         ),
 		html.Div(children=[
 			dcc.Input(id="getComm", type="number", placeholder="Range: [0, 456]", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
-			# dbc.Nav(dbc.NavItem(dbc.NavLink("See community", href="/similarity")), fill=True, pills=True),
-			# dbc.NavItem(dbc.NavLink("Active", href="/home", active=True)),
 			html.Button(dbc.NavItem(dbc.NavLink("See community", href="/similarity", active=getCommActivity)), id='submit-val', n_clicks=0)
-			# html.Button('Submit', id='next', n_clicks=0)
 		])
     ],
     id="index_page",
     fluid=True,
 )
 
-seriation = dbc.Container([
-	html.H5("Seriate Matrix:"),
-	dcc.RadioItems(
+seriation = dbc.Row([
+	dbc.Col(html.H5("Seriate Matrix:"), md=2),
+	dbc.Col(dcc.RadioItems(
 		options=[
-			{'value': 'none', 'label': 'None'},
+			{'value': 'node', 'label': 'Default'},
+			{'value': 'communityOrdering', 'label': 'Community'},
 			{'value': 'edgeOrdering', 'label': 'Number of Edges'},
 			{'value': 'topicOrdering', 'label': 'Topic Similarity'},
 			{'value': 'temporalOrdering', 'label': 'Temporal Similarity'},
-			{'value': 'communityOrdering', 'label': 'Community'},
 		],
-		value='none',
+		value='node',
 		inline=True,
 		labelStyle={'margin-right':'20px'},
 		id="matrixSeriation"
-	),
+	), ),
 ])
 
 
 similarity_layout = dbc.Container(
     [
-		dbc.Col(html.H1(id='strComm', style={'margin-top': 20}), align='center'),
+		dbc.Col(html.H1(id='strComm', style={'margin-top': 20}), style={'textAlign': 'center'}),
         html.Hr(),
 	    dbc.Row(
 			[
-				dbc.Col(seriation, md=11),
-				dbc.Col(html.Button(dbc.NavItem(dbc.NavLink("Back", href="/")), id='go-home', n_clicks=0, style={"width": "100px", "align": "left", 'margin-top': 10}), align="right", md=1),
+				dbc.Col(html.H5("Order by:"), width="auto"),
+				dbc.Col(dcc.RadioItems(
+					options=[
+						{'value': 'node', 'label': 'Default'},
+						{'value': 'communityOrdering', 'label': 'Community'},
+						{'value': 'edgeOrdering', 'label': 'Number of Edges'},
+						{'value': 'topicOrdering', 'label': 'Topic Similarity'},
+						{'value': 'temporalOrdering', 'label': 'Temporal Similarity'},
+					],
+					value='node',
+					inline=True,
+					labelStyle={'margin-right':'20px', 'margin-top':'2px'},
+					id="matrixSeriation"
+				), ),
+				dbc.Col(html.Button(dbc.NavItem(dbc.NavLink("Back", href="/")), id='go-home', n_clicks=0, style={"width": "100px", "align": "left", 'margin-top': 5}), align="right", width="auto"),
 			],
 	
 		),
 		
         dbc.Row(
             [
-				dbc.Col(dcc.Graph(id="topic")),
-				dbc.Col(dcc.Graph(id="temporal")),
+				dbc.Col([
+					dcc.Graph(id="topic"),
+					# html.H5("Topic Similarity Graph", style={'textAlign': "center", "margin-top": 0}),
+				]),
+				dbc.Col([
+					dcc.Graph(id="temporal"),
+					# html.H5("Temporal Similarity Graph", style={'textAlign': "center", "margin-top": 0}),
+				]),
             ],
             align="center",
         ),
@@ -169,15 +185,7 @@ def home_graph(low_node, high_node, low_edge, high_edge):
 		low_edge = 1
 	if not high_edge:
 		high_edge = 2230
-	
-	# if getComm:
-	# 	commValue = getComm
-	# 	getCommActivity = True
-	# similarity.setDefaultVal(getComm)
-	# getCommActivity = True
-	# print("getComm:", getComm)
-	
-	# print(low_edge, high_edge, low_node, high_node)
+
 	if low_node > high_node or low_edge > high_edge:
 		return px.scatter(homeDf, x='edge_count', y='node_count', color='community')
 	
@@ -186,7 +194,6 @@ def home_graph(low_node, high_node, low_edge, high_edge):
 
 
 def seriate(df, field, getComm):
-	# print("hi")
 	x_tmp = df['node1'].to_list()
 	y_tmp = df['node2'].to_list()
 
@@ -198,9 +205,28 @@ def seriate(df, field, getComm):
 		x.append(mapping[i])
 	for i in y_tmp:
 		y.append(mapping[i])
-	
-	return px.scatter(x=x, y=y, color=df['topic_similarity'].to_list(), width=650, height=600), px.scatter(x=x, y=y, color=df['temporal_similarity'].to_list(), width=650, height=600), "Similarity in Community: {}".format(str(getComm))
 
+	new_df = pd.DataFrame(data={
+		"node1": x,
+		"node2": y,
+		"topic_similarity": df['topic_similarity'].to_list(),
+		"temporal_similarity": df['temporal_similarity'].to_list()
+	})
+
+	try:
+		plot1 = px.scatter(new_df, x='node1', y='node2', color='topic_similarity', width=650, height=600, color_continuous_scale='Plasma', title="Topic Similarity", labels={"node1": "node", "node2": "node", "topic_similarity": 'Topic Similarity'})
+	except:
+		plot1 = px.scatter(new_df, x='node1', y='node2', color='topic_similarity', width=650, height=600, color_continuous_scale='Plasma', title="Topic Similarity", labels={"node1": "node", "node2": "node", "topic_similarity": 'Topic Similarity'})
+	
+	try:
+		plot2 = px.scatter(new_df, x='node1', y='node2', color='temporal_similarity', width=650, height=600, color_continuous_scale='Viridis', title="Temporal Similarity", labels={"node1": "node", "node2": "node", "temporal_similarity": 'Temporal Similarity'})
+	except:
+		plot2 = px.scatter(new_df, x='node1', y='node2', color='temporal_similarity', width=650, height=600, color_continuous_scale='Viridis', title="Temporal Similarity", labels={"node1": "node", "node2": "node", "temporal_similarity": 'Temporal Similarity'})
+
+
+	
+	
+	return (plot1, plot2, "Similarity in Community: {}".format(str(getComm)))
 
 @app.callback(
 	Output("topic", 'figure'),
@@ -213,16 +239,14 @@ def seriate(df, field, getComm):
 
 
 def similarity_graphs(getComm, matrixSeriation):
-	print(matrixSeriation)
 	value = str(getComm)
+	if value == 'None':
+		value = '11'
 	dff = similairtyDf[similairtyDf.community==value]
-	# print(dff.head())
-	if matrixSeriation =='none':
-		return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=650, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=650, height=600), "Similarity in Community: {}".format(str(getComm))
-	return seriate(dff, matrixSeriation, getComm)
+
+	return seriate(dff, matrixSeriation, value)
 
 
-# g1, g2 = update_graphs()
 
 if __name__ == '__main__':
 	app.run_server(debug=True, port=8050, host='0.0.0.0')

@@ -61,7 +61,7 @@ bounds =  dbc.Card(
 
 index_page = dbc.Container(
     [
-        html.H1("Number of nodes and edges in a community"),
+        html.H1("Number of nodes and edges in a community", style={'margin-top': 20, 'textAlign': 'center'}),
         html.Hr(),
         dbc.Row(
             [
@@ -82,11 +82,36 @@ index_page = dbc.Container(
     fluid=True,
 )
 
+seriation = dbc.Container([
+	html.H5("Seriate Matrix:"),
+	dcc.RadioItems(
+		options=[
+			{'value': 'none', 'label': 'None'},
+			{'value': 'edgeOrdering', 'label': 'Number of Edges'},
+			{'value': 'topicOrdering', 'label': 'Topic Similarity'},
+			{'value': 'temporalOrdering', 'label': 'Temporal Similarity'},
+			{'value': 'communityOrdering', 'label': 'Community'},
+		],
+		value='none',
+		inline=True,
+		labelStyle={'margin-right':'20px'},
+		id="matrixSeriation"
+	),
+])
+
 
 similarity_layout = dbc.Container(
     [
-        html.H1(id='strComm', style={'textAlign':'center'}),
+		dbc.Col(html.H1(id='strComm', style={'margin-top': 20}), align='center'),
         html.Hr(),
+	    dbc.Row(
+			[
+				dbc.Col(seriation, md=11),
+				dbc.Col(html.Button(dbc.NavItem(dbc.NavLink("Back", href="/")), id='go-home', n_clicks=0, style={"width": "100px", "align": "left", 'margin-top': 10}), align="right", md=1),
+			],
+	
+		),
+		
         dbc.Row(
             [
 				dbc.Col(dcc.Graph(id="topic")),
@@ -94,40 +119,10 @@ similarity_layout = dbc.Container(
             ],
             align="center",
         ),
-		html.Div(children=[
-			dcc.Input(id="getComm", type="number", placeholder="Range: [0, 456]", min=0, max=456, step=1, style={"width": "200px", "margin": "5px"}),
-			# dbc.Nav(dbc.NavItem(dbc.NavLink("See community", href="/similarity")), fill=True, pills=True),
-			# dbc.NavItem(dbc.NavLink("Active", href="/home", active=True)),
-			html.Button(dbc.NavItem(dbc.NavLink("Change community", href="/similarity", active=getCommActivity)), id='submit-val', n_clicks=0)
-			# html.Button('Submit', id='next', n_clicks=0)
-		])
     ],
     id="similarity_layout",
     fluid=True,
 )
-
-# similarity_layout = dbc.Container(
-# 	children=[
-# 		html.Div([
-# 		html.H1(id='strComm', style={'textAlign':'center'}),
-# 		# html.Div(id="strComm")
-# 		# dcc.Dropdown(homeDf.community.unique(), value=str(defaultValue), id='dropdown'),
-# 	]),
-# 	html.Div(className="grap-rows", children=[
-# 		# html.Div([
-# 		# 	dcc.Graph(id='topic')
-# 		# 	# dcc.Graph(id='temporal')
-# 		# ], style={'width':'30%', 'align': "left"}),
-# 		dbc.Row([
-# 			# dcc.Graph(id='topic'),
-# 			dbc.Col(dcc.Graph(id="topic")),
-# 			dbc.Col(dcc.Graph(id="temporal"))
-# 		]),
-# 	], ),
-# 	],
-# 	id="similarity_layout"
-# )
-
 
 
 app.layout = html.Div([
@@ -189,21 +184,42 @@ def home_graph(low_node, high_node, low_edge, high_edge):
 	dff = homeDf.loc[(homeDf['node_count'] >= low_node) & (homeDf['node_count'] <= high_node) & (homeDf['edge_count'] >= low_edge) & (homeDf['edge_count'] <= high_edge)]
 	return px.scatter(dff, x='edge_count', y='node_count', color='community')
 
+
+def seriate(df, field, getComm):
+	# print("hi")
+	x_tmp = df['node1'].to_list()
+	y_tmp = df['node2'].to_list()
+
+	ordering = pd.read_csv("seriation.csv")
+	mapping = ordering[field].to_list()
+	x = []
+	y = []
+	for i in x_tmp:
+		x.append(mapping[i])
+	for i in y_tmp:
+		y.append(mapping[i])
+	
+	return px.scatter(x=x, y=y, color=df['topic_similarity'].to_list(), width=650, height=600), px.scatter(x=x, y=y, color=df['temporal_similarity'].to_list(), width=650, height=600), "Similarity in Community: {}".format(str(getComm))
+
+
 @app.callback(
 	Output("topic", 'figure'),
 	Output("temporal", 'figure'),
 	Output("strComm", "children"),
-	Input('getComm', 'value')
+	Input('getComm', 'value'),
+	Input('matrixSeriation', 'value')
 )
 
-def similarity_graphs(getComm):
+
+
+def similarity_graphs(getComm, matrixSeriation):
+	print(matrixSeriation)
 	value = str(getComm)
-	# print("whhhhhha", getComm)
-	# if dropdown:
-	# 	value = dropdown
 	dff = similairtyDf[similairtyDf.community==value]
 	# print(dff.head())
-	return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=700, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=700, height=600), "Similarity in Community: {}".format(str(getComm))
+	if matrixSeriation =='none':
+		return px.scatter(dff, x="node1", y="node2", color="topic_similarity", width=650, height=600), px.scatter(dff, x="node1", y="node2", color="temporal_similarity", width=650, height=600), "Similarity in Community: {}".format(str(getComm))
+	return seriate(dff, matrixSeriation, getComm)
 
 
 # g1, g2 = update_graphs()

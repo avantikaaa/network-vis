@@ -20,8 +20,8 @@ app.config.suppress_callback_exceptions = True
 ########################
 commValue = 1
 getCommActivity = False
-homeDf = pd.read_csv('../dataset/vis/stats.csv')
-similairtyDf = pd.read_csv('../dataset/combined.csv')
+homeDf = pd.read_csv('./stats.csv')
+similairtyDf = pd.read_csv('./combined.csv')
 ########################
 
 bounds =  dbc.Card(

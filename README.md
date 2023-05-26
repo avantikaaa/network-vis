@@ -16,4 +16,4 @@ All of these libraries can be installed using pip.
 # Running the application
 1. Navigate into the `dash` directory on the terminal.
 2. Start the app using the command: ```$ python3 dashboard.py```
-3. Open ```http://localhost:8050``` to use the application. 
+3. Open http://localhost:8050 to use the application. 
